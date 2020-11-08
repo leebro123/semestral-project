@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPlugAPI", "SmartPlugAPI\SmartPlugAPI.csproj", "{86DF57EA-B088-4DDA-BF2D-6FA3A73648F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPlugDataCollector", "SmartPlugDataCollector\SmartPlugDataCollector.csproj", "{677B83AB-FF0C-40AC-883D-EBE55834AA07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPlugORM", "SmartPlugORM\SmartPlugORM.csproj", "{0B91D144-809F-4B93-A15B-3875570E57D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86DF57EA-B088-4DDA-BF2D-6FA3A73648F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86DF57EA-B088-4DDA-BF2D-6FA3A73648F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86DF57EA-B088-4DDA-BF2D-6FA3A73648F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86DF57EA-B088-4DDA-BF2D-6FA3A73648F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{677B83AB-FF0C-40AC-883D-EBE55834AA07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{677B83AB-FF0C-40AC-883D-EBE55834AA07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{677B83AB-FF0C-40AC-883D-EBE55834AA07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{677B83AB-FF0C-40AC-883D-EBE55834AA07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B91D144-809F-4B93-A15B-3875570E57D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B91D144-809F-4B93-A15B-3875570E57D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B91D144-809F-4B93-A15B-3875570E57D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B91D144-809F-4B93-A15B-3875570E57D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
