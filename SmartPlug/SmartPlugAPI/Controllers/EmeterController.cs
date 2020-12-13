@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmartPlugAPI.Cors;
 using SmartPlugORM;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,6 +11,7 @@ using SmartPlugORM;
 namespace SmartPlug.Controllers
 {
     [ApiController]
+    [AllowCrossSite]
     [Route("api/[controller]")]
     public class EmeterController : ControllerBase
     {
