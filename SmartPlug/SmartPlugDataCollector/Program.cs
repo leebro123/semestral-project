@@ -29,7 +29,7 @@ namespace SmartPlugDataCollector
                         Emeter emeter = JsonConvert.DeserializeObject<Emeter>(JsonConvert.SerializeObject(stats["emeter"]["get_realtime"]));
                         emeterEntityRepository.Insert(EmeterConvertor.ToEmeterEntity(emeter));
                         
-                        Thread.Sleep(30000);
+                        Thread.Sleep(240000);
                     }
                 }
                 catch (Exception e)
