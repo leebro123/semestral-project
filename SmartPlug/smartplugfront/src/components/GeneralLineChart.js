@@ -1,9 +1,10 @@
 import React from 'react';
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import {array} from 'prop-types';
+import {amber, purple, red} from '@material-ui/core/colors';
 
 const GeneralLineChart = (props) => {
-    const {chartData} = props;
+    const {chartData, current, power, voltage} = props;
 
     return <div className={'rechartsContainer'}>
         <ResponsiveContainer>
@@ -19,7 +20,7 @@ const GeneralLineChart = (props) => {
                     month: 'long', day: 'numeric', minute: 'numeric', hour: 'numeric'
                 })}/>
                 <Legend/>
-                <Line
+                {voltage ? <Line
                     unit={' mV'}
                     name={'Voltage'}
                     animationDuration={0}
@@ -27,29 +28,29 @@ const GeneralLineChart = (props) => {
                     yAxisId={'1'}
                     type={'monotone'}
                     dataKey={'voltage'}
-                    stroke={'#ffc107'}
+                    stroke={amber[600]}
                     dot={false}
-                />
-                <Line unit={' mA'}
+                /> : null}
+                {current ? <Line unit={' mA'}
                       name={'Current'}
                       animationDuration={0}
                       strokeWidth={2}
                       yAxisId={'2'}
                       type={'monotone'}
                       dataKey={'current'}
-                      stroke={'#f44336'}
+                      stroke={red[600]}
                       dot={false}
-                />
-                <Line unit={' mW'}
+                /> : null}
+                {power ? <Line unit={' mW'}
                       name={'Power'}
                       animationDuration={0}
                       strokeWidth={2}
                       yAxisId={'3'}
                       type={'monotone'}
                       dataKey={'power'}
-                      stroke={'#673ab7'}
+                      stroke={purple[600]}
                       dot={false}
-                />
+                /> : null}
             </LineChart>
         </ResponsiveContainer>
     </div>;

@@ -5,3 +5,45 @@
 .rechartsContainer {
 	height: 500px;
 }
+
+.loading {
+	height: 500px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.settings {
+	display: flex;
+	margin-bottom: 16px;
+}
+
+.filters, .datePickers {
+	flex-basis: 50%;
+}
+
+.datePickers {
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+}
+
+.datePickers__row {
+	display: flex;
+	padding: 8px 0;
+}
+
+.datePickers__label {
+	width: 80px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.datePickers__label {
+}
+
+.PrivateSwitchBase-root-3 {
+	padding: 0 !important;
+	margin-right: 6px !important;
+}

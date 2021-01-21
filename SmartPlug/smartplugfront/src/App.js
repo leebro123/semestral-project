@@ -1,6 +1,6 @@
 import './App.scss';
 import {Container} from '@material-ui/core';
-import GeneralLineChartLayout from './components/GeneralLineChartLayout';
+import AppLayout from './components/AppLayout';
 import React from 'react';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
                 <h1>SmartPlug Charts</h1>
             </header>
             <Container maxWidth="md">
-                <GeneralLineChartLayout/>
+                <AppLayout/>
             </Container>
         </div>
     );
