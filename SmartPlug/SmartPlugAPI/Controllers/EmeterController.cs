@@ -8,47 +8,41 @@ using SmartPlugORM;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace SmartPlug.Controllers
+namespace SmartPlugApi.Controllers
 {
     [ApiController]
     [AllowCrossSite]
     [Route("api/[controller]")]
     public class EmeterController : ControllerBase
     {
- 
-        private readonly ILogger<EmeterController> _logger;
+        private readonly IEmeterEntityRepository emeterEntityRepository;
 
-        public EmeterController(ILogger<EmeterController> logger)
+        public EmeterController(IEmeterEntityRepository emeterEntityRepository)
         {
-            _logger = logger;
-        }   
+            this.emeterEntityRepository = emeterEntityRepository;
+        }
 
         [HttpGet]
         [Route("all")]
         public IEnumerable<EmeterEntity> GetAll()
         {
-            using (SmartPlugConnection connection = new SmartPlugConnection())
-            {
-                connection.Open();
-                EmeterEntityRepository emeterEntityRepository = new EmeterEntityRepository(connection);
-
-                return emeterEntityRepository.GetAll().ToArray();
-            }
+            return emeterEntityRepository.GetAll().ToArray();
         }
 
         [Route("byDate")]
         public IEnumerable<EmeterEntity> GetByDate(string fromDate, string toDate)
         {
-            DateTime fromDateDateTime = Convert.ToDateTime(fromDate);
-            DateTime toDateDateTime = Convert.ToDateTime(toDate);
-
-            using (SmartPlugConnection connection = new SmartPlugConnection())
+            if (!DateTime.TryParse(fromDate, out var fromDateDateTime) || !DateTime.TryParse(toDate, out var toDateDateTime))
             {
-                connection.Open();
-                EmeterEntityRepository emeterEntityRepository = new EmeterEntityRepository(connection);
-
-                return emeterEntityRepository.GetByDate(fromDateDateTime, toDateDateTime).ToArray();
+                throw new Exception("Parameters 'fromDate' and 'toDate' must be provided or are in wrong format");
             }
+
+            if (DateTime.Compare(fromDateDateTime, toDateDateTime) > 0)
+            {
+                throw new Exception("'fromDate' parameter must not be later than 'toDate' parameter");
+            }
+
+            return emeterEntityRepository.GetByDate(fromDateDateTime, toDateDateTime).ToArray();
         }
     }
 }

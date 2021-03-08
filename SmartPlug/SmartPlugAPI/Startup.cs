@@ -10,8 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SmartPlugORM;
 
-namespace SmartPlug
+namespace SmartPlugApi
 {
     public class Startup
     {
@@ -26,6 +27,9 @@ namespace SmartPlug
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            using SmartPlugConnection smartPlugConnection = new SmartPlugConnection();
+            EmeterEntityRepository emeterEntityRepository = new EmeterEntityRepository(smartPlugConnection);
+            services.AddSingleton<EmeterEntityRepository>(emeterEntityRepository);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,17 +5,21 @@ using Microsoft.Data.Sqlite;
 
 namespace SmartPlugORM
 {
-    public class EmeterEntityRepository
+    public class EmeterEntityRepository : IEmeterEntityRepository
     {
+        private const string insertQueryString =
+            @"INSERT INTO emeter(current, voltage, power, created_at) VALUES (@current, @voltage, @power, @created_at)";
 
-        private const string insertQueryString = @"INSERT INTO emeter(current, voltage, power, created_at) VALUES (@current, @voltage, @power, @created_at)";
         private const string selectAllQueryString = @"SELECT current, voltage, power, created_at FROM emeter";
-        private const string selectByDateQueryString = @"SELECT current, voltage, power, created_at FROM emeter WHERE created_at BETWEEN @fromDate AND @toDate";
+
+        private const string selectByDateQueryString =
+            @"SELECT current, voltage, power, created_at FROM emeter WHERE created_at BETWEEN @fromDate AND @toDate";
 
         private SmartPlugConnection SmartPlugConnection { get; set; }
 
         public void Insert(EmeterEntity emeter)
         {
+            SmartPlugConnection.Open();
             var command = this.SmartPlugConnection.Connection.CreateCommand();
 
             command.CommandText = insertQueryString;
@@ -27,10 +31,12 @@ namespace SmartPlugORM
             command.Parameters.AddWithValue("@created_at", emeter.CreatedAt.ToString("s"));
 
             command.ExecuteNonQuery();
+            SmartPlugConnection.Dispose();
         }
 
         public IEnumerable<EmeterEntity> GetAll()
         {
+            SmartPlugConnection.Open();
             var command = this.SmartPlugConnection.Connection.CreateCommand();
             List<EmeterEntity> emeterEntities = new List<EmeterEntity>();
 
@@ -51,11 +57,13 @@ namespace SmartPlugORM
                 emeterEntities.Add(emeterEntity);
             }
 
+            SmartPlugConnection.Dispose();
             return emeterEntities;
         }
 
         public IEnumerable<EmeterEntity> GetByDate(DateTime fromDate, DateTime toDate)
         {
+            SmartPlugConnection.Open();
             var command = this.SmartPlugConnection.Connection.CreateCommand();
             List<EmeterEntity> emeterEntities = new List<EmeterEntity>();
 
@@ -79,6 +87,7 @@ namespace SmartPlugORM
                 emeterEntities.Add(emeterEntity);
             }
 
+            SmartPlugConnection.Dispose();
             return emeterEntities;
         }
 

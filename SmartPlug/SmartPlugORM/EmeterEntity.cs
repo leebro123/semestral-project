@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace SmartPlugORM
 {
@@ -11,5 +12,10 @@ namespace SmartPlugORM
         public int Power { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Voltage}, {Current}, {Power}, {CreatedAt.ToString(CultureInfo.CurrentCulture)}";
+        }
     }
 }
