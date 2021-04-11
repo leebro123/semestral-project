@@ -1,0 +1,508 @@
+{
+  "SmartPlugDataCollector.dll": {
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugDataCollector/Commands.cs": {
+      "SmartPlugDataCollector.Commands": {
+        "System.String SmartPlugDataCollector.Commands::Emeter()": {
+          "Lines": {
+            "8": 0,
+            "9": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugDataCollector/Emeter.cs": {
+      "SmartPlugDataCollector.Emeter": {
+        "System.Int32 SmartPlugDataCollector.Emeter::get_Voltage()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SmartPlugDataCollector.Emeter::get_Current()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SmartPlugDataCollector.Emeter::get_Power()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugDataCollector/EmeterConvertor.cs": {
+      "SmartPlugDataCollector.EmeterConvertor": {
+        "SmartPlugORM.EmeterEntity SmartPlugDataCollector.EmeterConvertor::ToEmeterEntity(SmartPlugDataCollector.Emeter)": {
+          "Lines": {
+            "9": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugDataCollector/Program.cs": {
+      "SmartPlugDataCollector.Program": {
+        "System.Void SmartPlugDataCollector.Program::Main(System.String[])": {
+          "Lines": {
+            "15": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "29": 0,
+            "30": 0,
+            "32": 0,
+            "33": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0
+          },
+          "Branches": [
+            {
+              "Line": 29,
+              "Offset": 57,
+              "EndOffset": 61,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 57,
+              "EndOffset": 97,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 117,
+              "EndOffset": 121,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 117,
+              "EndOffset": 198,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 228,
+              "EndOffset": 232,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 228,
+              "EndOffset": 291,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 321,
+              "EndOffset": 325,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 321,
+              "EndOffset": 377,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 397,
+              "EndOffset": 401,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 29,
+              "Offset": 397,
+              "EndOffset": 453,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugDataCollector/Utils.cs": {
+      "SmartPlugDataCollector.Utils": {
+        "System.Object SmartPlugDataCollector.Utils::Send(System.String,System.String,System.Net.Sockets.SocketType,System.Net.Sockets.ProtocolType,System.Int32)": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "30": 0,
+            "31": 0,
+            "34": 0
+          },
+          "Branches": [
+            {
+              "Line": 25,
+              "Offset": 93,
+              "EndOffset": 95,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 93,
+              "EndOffset": 127,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.UInt32 SmartPlugDataCollector.Utils::ReverseBytes(System.UInt32)": {
+          "Lines": {
+            "37": 1,
+            "38": 1,
+            "39": 1,
+            "40": 1
+          },
+          "Branches": []
+        },
+        "System.Byte[] SmartPlugDataCollector.Utils::Encrypt(System.String,System.Boolean)": {
+          "Lines": {
+            "42": 1,
+            "43": 1,
+            "44": 1,
+            "45": 1,
+            "46": 36,
+            "47": 17,
+            "48": 17,
+            "49": 17,
+            "50": 17,
+            "51": 1,
+            "52": 1
+          },
+          "Branches": [
+            {
+              "Line": 45,
+              "Offset": 20,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 45,
+              "Offset": 20,
+              "EndOffset": 30,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 46,
+              "Offset": 91,
+              "EndOffset": 51,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 17
+            },
+            {
+              "Line": 46,
+              "Offset": 91,
+              "EndOffset": 93,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.String SmartPlugDataCollector.Utils::Decrypt(System.Byte[],System.Boolean)": {
+          "Lines": {
+            "54": 0,
+            "55": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "64": 0,
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0
+          },
+          "Branches": [
+            {
+              "Line": 57,
+              "Offset": 10,
+              "EndOffset": 12,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 57,
+              "Offset": 10,
+              "EndOffset": 26,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 61,
+              "Offset": 77,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 61,
+              "Offset": 77,
+              "EndOffset": 79,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "SmartPlugORM.dll": {
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugORM/EmeterEntity.cs": {
+      "SmartPlugORM.EmeterEntity": {
+        "System.Int32 SmartPlugORM.EmeterEntity::get_Voltage()": {
+          "Lines": {
+            "7": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SmartPlugORM.EmeterEntity::get_Current()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SmartPlugORM.EmeterEntity::get_Power()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime SmartPlugORM.EmeterEntity::get_CreatedAt()": {
+          "Lines": {
+            "13": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugORM/EmeterEntityRepository.cs": {
+      "SmartPlugORM.EmeterEntityRepository": {
+        "SmartPlugORM.SmartPlugConnection SmartPlugORM.EmeterEntityRepository::get_SmartPlugConnection()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.Void SmartPlugORM.EmeterEntityRepository::Insert(SmartPlugORM.EmeterEntity)": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "21": 0,
+            "22": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "29": 0,
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<SmartPlugORM.EmeterEntity> SmartPlugORM.EmeterEntityRepository::GetAll()": {
+          "Lines": {
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "37": 0,
+            "38": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "51": 0,
+            "52": 0,
+            "54": 0,
+            "55": 0
+          },
+          "Branches": [
+            {
+              "Line": 41,
+              "Offset": 171,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 171,
+              "EndOffset": 173,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Collections.Generic.IEnumerable`1<SmartPlugORM.EmeterEntity> SmartPlugORM.EmeterEntityRepository::GetByDate(System.DateTime,System.DateTime)": {
+          "Lines": {
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "62": 0,
+            "63": 0,
+            "65": 0,
+            "66": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "74": 0,
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "79": 0,
+            "80": 0,
+            "82": 0,
+            "83": 0
+          },
+          "Branches": [
+            {
+              "Line": 69,
+              "Offset": 229,
+              "EndOffset": 111,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 69,
+              "Offset": 229,
+              "EndOffset": 231,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SmartPlugORM.EmeterEntityRepository::.ctor(SmartPlugORM.SmartPlugConnection)": {
+          "Lines": {
+            "85": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/libormichalek/Projects/semestral-project/SmartPlug/SmartPlugORM/SmartPlugConnection.cs": {
+      "SmartPlugORM.SmartPlugConnection": {
+        "Microsoft.Data.Sqlite.SqliteConnection SmartPlugORM.SmartPlugConnection::get_Connection()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Void SmartPlugORM.SmartPlugConnection::Open()": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": []
+        },
+        "System.Void SmartPlugORM.SmartPlugConnection::Dispose()": {
+          "Lines": {
+            "22": 0,
+            "23": 0,
+            "24": 0
+          },
+          "Branches": []
+        },
+        "System.Void SmartPlugORM.SmartPlugConnection::.ctor()": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "13": 0,
+            "14": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
