@@ -13,8 +13,7 @@ namespace SmartPlugDataCollector
         public static dynamic Send(string ip, string jsonPayload, SocketType socketType = SocketType.Stream,
             ProtocolType protocolType = ProtocolType.Tcp, int port = 9999)
         {
-            IPAddress address = null;
-            if (!IPAddress.TryParse(ip, out address))
+            if (!IPAddress.TryParse(ip, out _))
             {
                 throw new Exception("IP Address is not valid.");
             }
