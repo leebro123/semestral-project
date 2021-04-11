@@ -2,8 +2,35 @@
 	text-align: center;
 }
 
+.columns {
+	display: flex;
+}
+
+
+.columns__statistics {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin-inline-end: 16px;
+	padding-inline-end: 16px;
+	border-right: 1px solid #DEDEDE;
+}
+
+.columns__content {
+	width: 70%;
+}
+
+
 .rechartsContainer {
-	height: 500px;
+	height: 625px;
+	&.--small {
+		height: 175px;
+		margin-bottom: 48px;
+	}
+
+	h3 {
+		margin: 0 0 8px;
+	}
 }
 
 .loading {
@@ -46,4 +73,102 @@
 .PrivateSwitchBase-root-3 {
 	padding: 0 !important;
 	margin-right: 6px !important;
+}
+
+.clusterGroup {
+	border-radius: 3px;
+	background-color: #DFDFDF;
+	overflow: hidden;
+	margin-bottom: 16px;
+}
+
+.clusterGroup__panel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	min-height: 48px;
+	padding: 0 16px;
+	background-color: transparent;
+	transition: background-color .3s;
+	&:hover {
+		background-color: #C3C3C3;
+	}
+}
+
+.clusterGroup__header {
+	font-weight: 600;
+	font-size: 1.1em;
+}
+
+.clusterGroup__arrow {
+	opacity: .5;
+	transform: scale(.5);
+}
+
+.clusterGroup__content {
+	max-height: 0;
+	height: auto;
+	overflow: hidden;
+	&--open {
+		max-height: 1000vh;
+	}
+}
+
+.clusterGroup__contentInside {
+	padding: 16px;
+	border-top: 1px solid #C3C3C3;
+}
+
+.clusterGroupLine {
+	display: flex;
+	justify-content: flex-start;
+	padding-bottom: 8px;
+
+	&:not(:first-of-type) {
+		padding-top: 8px;
+	}
+
+	&:not(:last-of-type) {
+		border-bottom: 1px solid #C3C3C3;
+	}
+
+	> * {
+		flex-basis: 20%;
+	}
+
+	&.--heading {
+		font-weight: 700;
+	}
+}
+
+.MuiInputBase-formControl {
+	margin-inline-end: 8px;
+}
+
+.operationalTime {
+	text-align: left;
+	margin-bottom: 24px;
+}
+
+.operationalTime__record {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 4px;
+	align-items: center;
+	font-size: 0.95rem;
+	span {
+		font-size: 1.05rem;
+		font-weight: 600;
+	}
+	&.--up {
+		span {
+			color: #4caf50;
+		}
+	}
+	&.--down {
+		span {
+			color: #f44336;
+		}
+	}
 }

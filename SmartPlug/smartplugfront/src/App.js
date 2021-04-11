@@ -9,7 +9,7 @@ function App() {
             <header>
                 <h1>SmartPlug Charts</h1>
             </header>
-            <Container maxWidth="md">
+            <Container maxWidth="lg">
                 <AppLayout/>
             </Container>
         </div>

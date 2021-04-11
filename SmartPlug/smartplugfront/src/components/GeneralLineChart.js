@@ -32,24 +32,24 @@ const GeneralLineChart = (props) => {
                     dot={false}
                 /> : null}
                 {current ? <Line unit={' mA'}
-                      name={'Current'}
-                      animationDuration={0}
-                      strokeWidth={2}
-                      yAxisId={'2'}
-                      type={'monotone'}
-                      dataKey={'current'}
-                      stroke={red[600]}
-                      dot={false}
+                                 name={'Current'}
+                                 animationDuration={0}
+                                 strokeWidth={2}
+                                 yAxisId={'2'}
+                                 type={'monotone'}
+                                 dataKey={'current'}
+                                 stroke={red[600]}
+                                 dot={false}
                 /> : null}
                 {power ? <Line unit={' mW'}
-                      name={'Power'}
-                      animationDuration={0}
-                      strokeWidth={2}
-                      yAxisId={'3'}
-                      type={'monotone'}
-                      dataKey={'power'}
-                      stroke={purple[600]}
-                      dot={false}
+                               name={'Power'}
+                               animationDuration={0}
+                               strokeWidth={2}
+                               yAxisId={'3'}
+                               type={'monotone'}
+                               dataKey={'power'}
+                               stroke={purple[600]}
+                               dot={false}
                 /> : null}
             </LineChart>
         </ResponsiveContainer>
