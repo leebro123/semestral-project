@@ -8,6 +8,16 @@ export const DAY_MAPPING = {
     6: 'Sunday',
 };
 
+export const DAY_ORDER = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+];
+
 export const DAILY_CHART_TYPES = {
     Line: 'line',
     Bar: 'bar'
@@ -80,6 +90,8 @@ export const getDailyMedians = (data) => {
         result.push({day: key, value: median});
     }
 
+    result.sort((a, b) => DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day));
+
     return result;
 }
 
@@ -90,6 +102,8 @@ export const getDailyAverages = (data) => {
     for (const key in dailyMeasurements) {
         result.push({day: key, value: (dailyMeasurements[key].reduce((sum, currentValue) => sum + currentValue.power, 0) / dailyMeasurements[key].length).toFixed(2)});
     }
+
+    result.sort((a, b) => DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day));
 
     return result;
 }
@@ -102,6 +116,8 @@ export const getDailyPeaks = (data) => {
         const max = dailyMeasurements[key].reduce((a, b) => a.power > b.power ? a : b);
         result.push({day: (new Date(max.createdAt)).toISOString(), value: max.power, createdAt: max.createdAt});
     }
+
+    result.sort((a, b) => DAY_ORDER.indexOf(DAY_MAPPING[(new Date(a.day)).getDay()]) - DAY_ORDER.indexOf(DAY_MAPPING[(new Date(b.day)).getDay()]));
 
     return result;
 }

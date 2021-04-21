@@ -159,6 +159,7 @@ const DBSCANLayout = (data) => {
                 }
             }}
         /> : null}
+        {clusters.length ? <h2>Groups of hours by week day with similar power consumption</h2> : null}
         {clusters.map((cluster, i) => {
             return <ClusterGroup heading={`Cluster ${i + 1}`} key={i}>
                 <div key={0} className={'clusterGroupLine --heading'}>
