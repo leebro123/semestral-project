@@ -1,0 +1,32 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper, nohead, nofoot, marginparwidth=0mm, marginparsep=0mm, left=20mm, right=20mm, top=20mm, bottom=30mm]{geometry}
+\usepackage[czech,english]{babel}
+
+\newcommand{\BookCover}[6]
+{
+	\begin{center}
+		\Huge\bfseries
+		#1\par\medskip
+		#2\par
+		\vspace{#3}
+		#4\par
+	\end{center}
+	\vfill
+	{\Huge#5\hfill#6}
+	\clearpage
+}
+
+\pagestyle{empty}
+
+
+\begin{document}
+
+\selectlanguage{czech}
+\BookCover{VŠB -- Technická univerzita Ostrava}{Fakulta elektrotechniky a informatiky}{96mm}{BAKALÁŘSKÁ PRÁCE}{2020}{Libor Michálek}
+
+
+
+\end{document}
