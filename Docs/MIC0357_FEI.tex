@@ -180,9 +180,9 @@
 % A nasleduje text zaverecne prace.
 \section{Úvod}
 \label{sec:Introduction}
-Tento semestrální projekt pojednává o tvorbě aplikace pro sběr a vizualizaci dat z IoT zařízení pod vedením pana Ing. Michala Radeckého Ph.D., který jsem si vybral na základě záliby ve vývoji vizualizačních aplikací a také k prohloubení ostatních znalostí souvisejících s vytvářením aplikací pro IoT zařízení založených na ARM architektuře s operačním systémem Linux a síťovou komunikací s chytrými zařízeními.
+Tento semestrální projekt pojednává o tvorbě aplikace pro sběr a vizualizaci dat z IoT zařízení pod vedením pana Ing. Michala Radeckého Ph.D., který jsem si vybral na základě záliby ve vývoji vizualizačních aplikací a také se záměrem prohloubení ostatních znalostí souvisejících s vytvářením aplikací pro IoT zařízení založených na ARM architektuře s operačním systémem Linux a síťovou komunikací s chytrými zařízeními.
 
-Druhá kapitola této práce popisuje použité technologie a zařízení při vytváření toho projektu. Následující kapitola pak popisuje postupy a implementaci jednotlivých částí aplikace od databáze až po samotné uživatelské rozhraní. V závěru dokumentu se nachází zhodnocení tohoto semestrálního projektu, nabyté vědomosti nebo naopak komplikace, ke kterým došlo v průběhu tvorby aplikace.
+Druhá kapitola této práce popisuje použité technologie a zařízení při vytváření toho projektu. Následující kapitola pak popisuje postupy a implementaci jednotlivých částí aplikace od databáze až po samotné uživatelské rozhraní. V závěru dokumentu se nachází zhodnocení tohoto semestrálního projektu, nabyté vědomosti nebo naopak komplikace, ke kterým nastalo v průběhu tvorby aplikace.
 
 \clearpage
 
@@ -207,25 +207,25 @@ React\autocite{React} je JavaScriptová knihovna pro tvorbu uživatelských rozh
 \clearpage
 
 \subsubsection*{Recharts}
-Recharts\autocite{Recharts} je knihovnou pro React sloužící k grafové vizualizaci dat. Obsahuje různé typy grafů, jako například spojnicový, sloupcový, koláčový, jejich kombinace a další. Umožňuje grafy skládat po částech z komponent což je užitečné například pro znovupoužitelnost a přizpůsobení vlastním potřebám.
+Recharts\autocite{Recharts} je knihovnou pro React sloužící k grafové vizualizaci dat. Obsahuje různé typy grafů, jako například spojnicový, sloupcový, koláčový, jejich kombinace a další. Umožňuje grafy skládat po částech ze samostatných komponent, což je užitečné například pro znovupoužitelnost.
 
 \subsubsection*{Plotly}
-Plotly\autocite{Plotly} je jednou z dalších knihoven pro grafové vizualizace. . Na tomto projektu je použita z důvodu absence 3D grafů v Recharts.
+Plotly\autocite{Plotly} je jednou z dalších knihoven pro grafové vizualizace. Na tomto projektu je použita z důvodu absence 3D grafů v knihovně Recharts.
 
 \clearpage
 
 \section{Návrh a implementace}
-První část této kapitoly je zaměřená na návrh aplikace jako celku. Následně je podrobněji popsána databázová a backendová implementační část aplikace a na závěr frontendová část s prezentací výsledků vizualizace.
+První část této kapitoly je zaměřená na návrh aplikace před implementací. Následně je podrobněji popsána databázová a backendová implementační část aplikace a na závěr frontendová část s prezentací výsledků a vizualizací.
 
 \subsection{Návrh}
-Aplikace jako celek je rozdělena do několika spolu komunikujících částí. První důležitou částí je aplikace, která se nepřetržitě stará o periodické dotazování se na chytrou zásuvku o aktuální spotřebu a ukládání hodnot obsažené v odpovědi do databáze. Ta je implementovaná jako konzolová aplikace běžící jako systémová služba na Raspberry Pi. Druhou částí je opět systémová služba, tentokrát implementována jako REST aplikační rozhraní poskytující serializovaná data z databáze do formátu JSON. Poslední částí je React aplikace využívající tohoto rozhraní, která provádí statistické výpočty nad získanými daty a následně je reprezentuje pomocí grafů nebo v textové podobě. Schématický návrh aplikace je možno vidět na následujícím obrázku \ref{fig:AppDesign}.
+Finální aplikace je rozdělena do několika spolu komunikujících částí. První důležitou částí je aplikace, která se nepřetržitě stará o periodické dotazování se na chytrou zásuvku o aktuální spotřebu a ukládání hodnot obsažené v odpovědi do databáze. Ta je implementována jako konzolová aplikace běžící jako systémová služba na Raspberry Pi. Druhou částí je opět systémová služba, tentokrát implementována jako REST aplikační rozhraní poskytující data z databáze do formátu JSON. Obě tyto části využívají společnou jednoduchou knihovnu pro objektově-relační mapování. Poslední částí je React aplikace využívající tohoto rozhraní, která provádí statistické výpočty nad získanými daty a následně je reprezentuje pomocí grafů a v textové podobě. Schématický návrh aplikace je možno vidět na následujícím obrázku \ref{fig:AppDesign}.
 
 \bigbreak
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/AppDesign.png}
-	\caption{Schématický návrh komunikace jednotlivých částí aplikace}
+	\caption{Schématický návrh komunikace jednotlivých částí aplikace a zařízení}
 	\label{fig:AppDesign}
 \end{figure}
 
@@ -236,7 +236,7 @@ Backendová aplikace běžící na Raspberry Pi je logicky rozdělena do 4 čás
 
 \begin{itemize}
 \item \textbf{SmartPlugORM:}
-Je knihovnou vytvořenou pro objektově relační mapování\autocite{PofEAA}, která zajišťuje jednoduché operace nad SQLite databází, jako je vkládání nových záznamů nebo načítání dat z databáze a jejich automatickou konverzi na objekty. Je použita v následujících dvou aplikacích pro získávání dat a jejich poskytování. Díky tomu odpadá potenciální problém s duplicitou kódu napříč aplikacemi. Pro ukládání záznamů o měření spotřeby z chytré zásuvky postačuje jednoduchá tabulka obsahující veličiny související s měřením, datum s časem vytvoření záznamu a jeho identifikátor. Strukturu tabulky je možno vidět v následující tabulce \ref{tab:Table emeter}:
+Je knihovnou vytvořenou pro objektově relační mapování\autocite{PofEAA}, která zajišťuje jednoduché operace nad SQLite databází, jako je vkládání nových záznamů nebo načítání dat z databáze a automatickou konverzi entit na objekty. Je použita v následujících dvou aplikacích pro získávání dat a jejich poskytování. Díky tomu odpadá potenciální problém s duplicitou kódu napříč aplikacemi. Pro ukládání záznamů o měření spotřeby z chytré zásuvky postačuje jednoduchá tabulka obsahující veličiny související s měřením, datum s časem vytvoření záznamu a jeho identifikátor. Strukturu tabulky je možno vidět v následující tabulce \ref{tab:Table emeter}:
 
 \bigbreak
 
@@ -269,15 +269,15 @@ Je konzolová aplikace, využívající knihovnu \texttt{SmartPlugORM}, spuště
 }
 \end{lstlisting}
 \bigbreak
-\noindent Šifrování zpráv pak probíhá tak, že se první byte zprávy zašifruje bitovou operací \texttt{XOR} a hodnotou \texttt{0xAB}. Následující byte se pak šifruje hodnotou předchozího zašifrovaného bytu. Pro dešifrování platí analogicky obdobné pravidlo s tím rozdílem, že se jako následující klíč volí hodnota bytu před dešifrováním. Tomuto přístupu se také říká autoklíčová šifra. K odhalení tohoto způsobu šifrování můžeme využít například dekompilace Android aplikace Kasa\autocite{KASA}.
+\noindent Šifrování zpráv pak probíhá tak, že se první byte zprávy zašifruje bitovou operací \texttt{XOR} a hodnotou \texttt{0xAB}. Následující byte se pak šifruje hodnotou předchozího zašifrovaného bytu. Pro dešifrování platí analogicky obdobné pravidlo s tím rozdílem, že se jako následující klíč volí hodnota bytu před dešifrováním. Tomuto přístupu se také říká autoklíčová šifra. K odhalení tohoto způsobu šifrování můžeme využít zpětného inženýrství, například dekompilace Android aplikace Kasa\autocite{KASA}.
 
 \item \textbf{SmartPlugAPI:}
-Je webová aplikace založená na ASP.NET Core, využívající knihovnu \texttt{SmartPlugORM}, která je spuštěna také jako služba na Raspberry Pi. Obsahuje dvě následující HTTP GET metody:
+Je ASP.NET Core webová aplikace, využívající knihovnu \texttt{SmartPlugORM}, která je spuštěna také jako služba na Raspberry Pi. Obsahuje dvě následující HTTP GET metody:
 \begin{itemize}
-	\item \textbf{GetAll} – Vrací všechny naměřené záznamy ve formátu JSON. Ukázku odpovědi je možno vidět ve výpise \ref{lst:api}.
+	\item \textbf{GetAll} – Vrací veškeré naměřené záznamy ve formátu JSON. Ukázku odpovědi je možno vidět ve výpise \ref{lst:api}.
 	\item \textbf{GetByDate} – Vrací naměřené záznamy v zadaném rozsahu dat. Obsahuje dva povinné parametry \texttt{fromDate} a \texttt{toDate}. Tyto parametry musí dodržet normu ISO 8601, která definuje formát pro zápis data a času.
 \end{itemize}
-\noindent Cesty k těmto endpointům jsou vytvářeny ve formátu \texttt{"/api/emeter/METODA"}.
+\noindent Cesty k těmto endpointům jsou přistupné ve formátu \texttt{"/api/emeter/METODA"}.
 \bigbreak
 \begin{lstlisting}[language=json,caption=Ukázka odpovědi aplikačního rozhraní,label={lst:api}]
 [
@@ -292,7 +292,7 @@ Je webová aplikace založená na ASP.NET Core, využívající knihovnu \texttt
 \end{lstlisting}
 
 \item \textbf{SmartPlugTests:}
-Obsahuje unit testy testující funkcionalitu výše zmíněného šifrování a dešifrování. Dále zahrnuje také test pro testování API metody pro získávání záznamů podle data.
+Obsahuje unit testy testující funkcionalitu výše zmíněného šifrování a dešifrování. Dále zahrnuje také testování API metody pro získávání záznamů podle data.
 		
 \end{itemize}
 
@@ -311,14 +311,14 @@ Obsahuje unit testy testující funkcionalitu výše zmíněného šifrování a
 \pagebreak
 
 \subsection{Nasazení na Raspberry Pi}
-Pro spuštění a nepřetržitý provoz vytvořených aplikaci bylo nutné Raspberry Pi nejdříve připravit. Což znamenalo kromě samotného nainstalování Raspbianu také povolit SSH pro vzdálený přístup, instalaci \texttt{SQLite} a vytvoření struktury zmíněné výše\ref{tab:Table emeter}. Dále také instalaci \texttt{.NET Core SDK 3.1} včetně \texttt{ASP.NET Core Runtime 3.1 } a registrovat cestu k nim do proměnných prostředí (environment variables). V případě, že by bylo nutné systém restartovat, je vhodné tyto cesty přidat do souboru \texttt{.profile}:
+Pro spuštění a nepřetržitý provoz vytvořených aplikaci bylo nutné Raspberry Pi nejdříve připravit. Což znamenalo kromě samotného nainstalování operačního systému Raspbian také povolit SSH pro vzdálený přístup, instalaci \texttt{SQLite} a vytvoření databázové struktury zmíněné výše\ref{tab:Table emeter}. Dále také instalaci \texttt{.NET Core SDK 3.1} včetně \texttt{ASP.NET Core Runtime 3.1 } a registrovat cestu k nim do proměnných prostředí (environment variables). V případě, že by bylo nutné systém restartovat, bylo potřeba tyto cesty přidat do souboru \texttt{.profile}:
 \bigbreak
 \begin{lstlisting}[language=bash,caption=Proměnné prostředí pro cesty k .NET Core SDK a ASP.NET Runtime]
 export DOTNET_ROOT=$HOME/dotnet-arm32
 export PATH=$PATH:$HOME/dotnet-arm32
 \end{lstlisting}
 \bigbreak
-Po úspěšném otestování, například příkazem \texttt{dotnet --info}, bylo následně možné přesunout již vytvořené aplikace pomocí protokolu SSH, příkazem \texttt{scp} na Raspberry Pi a spustit je příkazem \texttt{dotnet SmartPlugDataCollector} a \texttt{dotnet SmartPlugApi}. Pro otestování funkčnosti bylo možné přistoupit na endpoint vytvořeného API pod IP adresou zařízení v místní síti. V této fázi by bylo možné začít implementovat frontendovou aplikaci, nicméně pokud by bylo nutné zařízení restartovat v případě výpadku sítě, elektrického napájení nebo jiného problému, bylo vhodné tyto aplikace zaregistrovat jako služby, které se samy v případě havárie restartují nebo spustí při startu systému. K tomu bylo potřeba vytvořit nové démony \texttt{/etc/systemd/system/smart-plug-data-collector.service} a \texttt{/etc/systemd/system/smart-plug-api.service}. Konfiguraci služby pro \texttt{SmartPlugAPI} je možno vidět v ukázce. Služba pro \texttt{SmartPlugDataCollector} byla konfigurována analogicky obdobným způsobem. 
+Po úspěšném otestování balíčků, například příkazem \texttt{dotnet --info}, bylo následně možné přesunout již vytvořené aplikace pomocí protokolu SSH, příkazem \texttt{scp} na Raspberry Pi a spustit je příkazem \texttt{dotnet SmartPlugDataCollector} a \texttt{dotnet SmartPlugApi}. Pro otestování funkčnosti bylo možné přistoupit na endpoint vytvořeného API pod IP adresou zařízení v místní síti. V této fázi by bylo možné začít implementovat frontendovou aplikaci, nicméně pokud by bylo nutné zařízení restartovat v případě výpadku sítě, elektrického napájení nebo jiného problému, bylo vhodné tyto aplikace zaregistrovat jako služby, které se automaticky v případě havárie restartují nebo spustí při startu systému. K tomu bylo potřeba vytvořit nové démony \texttt{/etc/systemd/system/smart-plug-data-collector.service} a \texttt{/etc/systemd/system/smart-plug-api.service}. Konfiguraci služby pro \texttt{SmartPlugAPI} je možno vidět v ukázce. Služba pro \texttt{SmartPlugDataCollector} byla konfigurována analogicky obdobným způsobem. 
 \bigbreak
 \begin{lstlisting}[language={},caption=Konfigurace jedné z aplikací jako systémové služby]
 [Unit]
@@ -349,49 +349,49 @@ sudo systemctl status smart-plug-api.service
 
 \pagebreak
 \subsection{Frontend aplikace} 
-Celá frontendová část projektu byla tvořena jako single-page aplikace v jazyce \texttt{React} využívající výše zmíněné aplikační rozhraní. Kromě knihoven pro grafové vizualizace zde byla použita knihovna \texttt{Material-UI}\autocite{MaterialUI} pro některé prvky uživatelského rozhraní. Dále také knihovna \texttt{axios}\autocite{axios} pro usnadnění AJAX komunikace s API.
+Celá frontendová část projektu byla tvořena jako single-page aplikace s použitím knihovny \texttt{React} využívající výše zmíněné aplikační rozhraní. Kromě knihoven pro grafové vizualizace zde byla použita knihovna \texttt{Material-UI}\autocite{MaterialUI} pro některé prvky uživatelského rozhraní. Dále také knihovna \texttt{axios}\autocite{axios} pro usnadnění AJAX komunikace s API.
 
-Webové rozhraní obsahuje několik prvků pro interakci s uživatelem. Nejdůležitější z nich jsou pole pro výběr časového úseku \texttt{From} a \texttt{To}, podle něhož je následně zaslán požadavek na API. Data z odpovědi jsou pak zpracována a vizualizována pomocí grafů. Dále obsahuje tři zaškrtávací políčka pro filtraci elektrických veličin zobrazených v hlavním grafu. V levém sloupci je možno vidět vypočtené statistiky z naměřených dat. Nad hlavním grafem se nachází kromě první záložky také další dvě, ve které obsahují vstupní pole pro parametry shlukovacích algoritmů \texttt{K-Means} a \texttt{DBSCAN}, na jejichž základě je proveden výpočet s vybraným časovým úsekem dat a vizualizací shluků. Ukázku prvního pohledu na aplikaci je možno vidět na obrázku \ref{fig:React1}.
+Webové rozhraní obsahuje několik prvků pro interakci s uživatelem. Nejdůležitější z nich jsou pole pro výběr časového úseku \texttt{From} a \texttt{To}, který má být analyzován a vizualizován. Podle hodnot těchto vstupů je následně zaslán požadavek na API. Data z odpovědi jsou pak zpracována a vizualizována pomocí grafů. Dále obsahuje tři zaškrtávací políčka pro filtraci elektrických veličin zobrazených v hlavním grafu. V levém sloupci je možno vidět vypočtené statistiky z naměřených dat. Nad hlavním grafem se nachází kromě první záložky také další dvě, ve které obsahují vstupní pole pro parametry shlukovacích algoritmů \texttt{K-Means} a \texttt{DBSCAN}, na jejichž základě je proveden výpočet s vybraným časovým úsekem dat a vizualizací shluků. Ukázku prvního pohledu na aplikaci je možno vidět na obrázku \ref{fig:React1}.
 
 \bigbreak
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\textwidth]{Figures/React1-1.png}
+	\includegraphics[width=1\textwidth]{Figures/React1.png}
 	\caption{Ukázka vizualizace časového průběhu elektrických veličin a statistik}
 	\label{fig:React1}
 \end{figure}
 \pagebreak
 
-Struktura kódu aplikace je členěna do několika komponent, z nichž některé jsou znovupoužitelné, jedná se například o sloupcové grafy, které je možno vidět v levém sloupci se statistikami a jejich odlišnosti při použití jsou řešeny skrze předávání parametrů pomocí \texttt{props}. Většina logiky pro zpracování dat se nachází mimo samotné React komponenty v souboru \texttt{utils.js}, případně samostatném JavaScript souboru pro jednotlivé shlukovací algoritmy.
+Struktura aplikace je členěna do několika komponent, z nichž některé jsou použity v rámci aplikace několikrát. Jedná se například o sloupcové grafy, které je možno vidět v levém sloupci se statistikami a jejich odlišnosti při použití jsou řešeny skrze předávání parametrů pomocí \texttt{props}. Většina logiky pro zpracování dat se nachází mimo samotné React komponenty v souboru \texttt{utils.js}, případně samostatném JavaScript souboru pro jednotlivé shlukovací algoritmy.
 
 \subsubsection*{Komponenty pro analýzu dat a jejich vizualizaci}
 \begin{itemize}
 	\item \textbf{General overview} – Jedná se o obecný spojnicový graf zobrazující v čase jednotlivé naměřené elektrické veličiny ve zvoleném rozsahu, tyto veličiny je možno filtrovat pomocí zaškrtávacích políček. Viz obrázek \ref{fig:React1}.
 	\item \textbf{Operational time}	– Reprezentuje v koláčovém grafu poměr času, kdy bylo zařízení zapnuté a vypnuté. Kromě toho také detekuje nejdelší dobu po kterou bylo zařízení zapnuté a vypnuté. Tu zobrazuje v textové podobě. Viz obrázek \ref{fig:React1}.
-	\item \textbf{Non-zero daily power median} – Představuje sloupcový graf obsahující denní mediány z nenulových naměřených hodnot spotřeby. Nenulových z toho důvodu, jakým způsobem bylo zařízení používáno. Tudíž tak, že bylo většinu času vypnuté, proto by výsledky ze všech naměřených hodnot byly irelevantní. Viz obrázek \ref{fig:React1}.
-	\item \textbf{Daily power average} – Jedná se o sloupcový graf vizualizující průměry okamžitých hodnot spotřeby z chytré zásuvky v rámci dnů v týdnu. Viz obrázek \ref{fig:React1}.
+	\item \textbf{Non-zero daily power consumption median} – Představuje sloupcový graf obsahující denní mediány z nenulových naměřených hodnot spotřeby. Nenulových z toho důvodu, že měřené zařízení bylo většinu času vypnuté, proto by výsledky ze kompletních naměřených hodnot byly irelevantní. Viz obrázek \ref{fig:React1}.
+	\item \textbf{Daily power average} – Jedná se o sloupcový graf vizualizující průměry okamžitých hodnot elektrické spotřeby z chytré zásuvky v rámci dnů v týdnu. Viz obrázek \ref{fig:React1}.
 	\item \textbf{Daily power peaks} – Reprezentuje v sloupcovém grafu píky okamžité elektrické spotřeby za každý den v týdnu. Při najetí myši na konkrétní den se zobrazí plovoucí okno, ve kterém se nachází přesný datum a čas kdy k píku došlo. Viz obrázek \ref{fig:React1}.
 	\pagebreak
-	\item \textbf{K-Means} – Představuje shlukovací algoritmus jehož vstupem je kromě dat pouze počet \texttt{K}. Algoritmus funguje tak, že v prvním kroku zvolí náhodně počáteční centroidy jednotlivých shluků. Poté postupuje iterativně tak, že v každém kroku přiřazuje k jednotlivým shlukům objekty podle jejich vzdálenosti od centroidů tak dlouho, dokud nedojde k žádné záměně. Při aplikaci tohoto algoritmu byly jako data využity průměrné hodinové spotřeby v rámci dnů. Pro určení vzdálenosti byla použita Euklidovská metrika. Vizualizovaný výsledek je možno vidět na obrázku \ref{fig:React2}.
+	\item \textbf{K-Means} – Představuje shlukovací algoritmus jehož vstupem je kromě dat pouze počet shluků – \texttt{K}. Algoritmus funguje tak, že v prvním kroku zvolí náhodně počáteční centroidy jednotlivých shluků. Poté postupuje iterativně tak, že v každém kroku přiřazuje k jednotlivým shlukům objekty podle jejich vzdálenosti od centroidů tak dlouho, dokud nedojde k žádné záměně. Při aplikaci tohoto algoritmu byla jako data využity průměrné hodinové spotřeby v rámci dnů. Pro určení vzdálenosti byla použita Euklidovská metrika. Vizualizovaný výsledek je možno vidět na obrázku \ref{fig:React2}.
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=1\textwidth]{Figures/React2.png}
-		\caption{Ukázka vizualizace výsledku shlukovacího algoritmu K-Means}
+		\caption{Ukázka vizualizace výsledků shlukovacího algoritmu K-Means}
 		\label{fig:React2}
 	\end{figure}
 	\pagebreak
-	\item \textbf{DBSCAN} (Density-based spatial clustering of applications with noise) – Jedná se o další shlukovací algoritmus, který vyžaduje dva parametry: $\epsilon$ a minimální počet objektů nutný pro zformování shluku. Algoritmus funguje tak, že pro každý objekt je počítáno počet objektů v jeho $\epsilon$ okolí. Pokud splní požadavek na minimální počet objektů pro zformování shluku, je vytvořen nový shluk a následně jsou do něj přiřazeny také ty objekty, které jsou dosažitelné v rámci $\epsilon$ vzdálenosti z tzv. \texttt{core points}, tudíž takových objektů v shluku, jejichž počet sousedů je alespoň roven minimálnímu počtu objektů na shluk definovaným na počátku algoritmu. V opačném případě jsou objekty označeny jako šum. Ukázku výsledku algoritmu je možno vidět na obrázku \ref{fig:React3}. Obdobně jako u K-Means je zde použita stejná metrika a data jsou předpřipravené stejným způsobem.
+	\item \textbf{DBSCAN} (Density-based spatial clustering of applications with noise) – Jedná se o další shlukovací algoritmus, který vyžaduje dva parametry: Vzdálenost $\epsilon$ a minimální počet objektů nutný pro zformování shluku. Algoritmus funguje tak, že pro každý objekt je počítáno počet objektů v jeho $\epsilon$ okolí. Pokud splní požadavek na minimální počet objektů pro zformování shluku, je vytvořen nový shluk a následně jsou do něj přiřazeny také ty objekty, které jsou dosažitelné v rámci $\epsilon$ vzdálenosti z tzv. \texttt{core points}, tudíž takových objektů v shluku, jejichž počet sousedů je alespoň roven minimálnímu počtu objektů na shluk definovaným na počátku algoritmu. V opačném případě jsou objekty označeny jako šum. Ukázku výsledku algoritmu je možno vidět na obrázku \ref{fig:React3}. Obdobně jako u K-Means je zde použita stejná metrika a data jsou předpřipravená stejným způsobem.
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=1\textwidth]{Figures/React3.png}
-		\caption{Ukázka vizualizace výsledku shlukovacího algoritmu DBSCAN}
+		\caption{Ukázka vizualizace výsledků shlukovacího algoritmu DBSCAN}
 		\label{fig:React3}
 	\end{figure}
 \end{itemize}
 
 \pagebreak 
 
-Pro shlukovací algoritmy se v rozhraní také nachází textová podoba výsledků s jednotlivými skupinami objektů, které jsou si z hlediska hodinových průměrů okamžité spotřeby v rámci dnů v týdnu, podobné. Viz obrázek \ref{fig:React4}.
+Pro shlukovací algoritmy se ve webovém rozhraní také nachází textová podoba výsledků s jednotlivými skupinami objektů, které jsou si, z hlediska hodinových průměrů okamžité spotřeby v rámci dnů v týdnu, podobné. Viz obrázek \ref{fig:React4}.
 
 \begin{figure}[h!]
 	\centering
@@ -402,9 +402,9 @@ Pro shlukovací algoritmy se v rozhraní také nachází textová podoba výsled
 
 \pagebreak
 \section{Závěr}
-Jako výsledkem práce na projektu se mi podařilo vytvořit tři vzájemně propojené aplikace, které se starají o automatizovaný sběr dat z chytré zásuvky a ukládání do databáze, jejich následné poskytování skrze aplikační rozhraní a jeho využití v React aplikaci, která se stará o vizualizaci těchto dat a vypočtených statistik. Kromě toho také obsahuje vizualizaci výsledků některých shlukovacích algoritmů.
+Jako výsledek práce na projektu se mi podařilo vytvořit tři vzájemně propojené aplikace, které se starají o automatizovaný sběr dat z chytré zásuvky a ukládání do databáze, jejich následné poskytování skrze aplikační rozhraní a jeho využití v React aplikaci, která se stará o vizualizaci dat a výpočet statistik. Kromě toho také obsahuje vizualizaci výsledků některých shlukovacích algoritmů.
 
-Díky práci na tomto projektu jsem si mohl rozšířit své znalosti v oblastech tvorby React aplikací, asynchronní komunikací s aplikačním rozhraním a prací s grafovými knihovnami. Zcela novou problematikou pro mne byla práce s Raspberry Pi a komunikace s chytrým zařízením.
+Díky práci na tomto projektu jsem si mohl rozšířit své znalosti v oblastech tvorby React aplikací, asynchronní ko vybírármunikací s aplikačním rozhraním a prací s grafovými knihovnami. Zcela novou problematikou pro mne byla práce s Raspberry Pi a komunikace s chytrým zařízením.
 
 \clearpage
 
